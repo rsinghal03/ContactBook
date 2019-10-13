@@ -20,14 +20,14 @@ interface ContactsDao {
     fun insertAccount(listOfAccounts: List<Accounts>)
 
     @Query("select contactId from Contacts")
-    fun getContactId(): LiveData<List<String>>
+    fun getContactId(): List<String>
 
     @Query("select contacts.stagingId, newTable._context, newTable.userId, " +
             "newTable.status from contacts join (select * from accounts join " +
             "extensions on extensions._context = accounts._context) as newTable " +
             "on contacts._id = newTable.phoneContactId " +
             "where contacts.contactId LIke :contactId")
-    fun getContactIdDetails(contactId: String): LiveData<ContactDetails>
+    fun getContactIdDetails(contactId: String): ContactDetails
 
 
 

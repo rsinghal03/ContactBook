@@ -2,6 +2,7 @@ package com.example.contactbook.data
 
 import android.app.Activity
 import android.content.Context
+import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,8 +12,9 @@ import com.example.contactbook.data.database.ContactsDatabase
 import com.example.contactbook.data.database.MockDataProvider
 import com.example.contactbook.data.model.ContactDetails
 import java.util.concurrent.Executors
+import java.util.logging.Handler
 
-class DbRepository(context: Context) {
+class DbRepository(val context: Context) {
 
     private val diskIoExecutor = Executors.newSingleThreadExecutor()
 
@@ -31,28 +33,23 @@ class DbRepository(context: Context) {
     }
 
     fun getListOfContactId(): LiveData<List<String>> {
-        val mediatorLiveData = MediatorLiveData<List<String>>()
-        var list = MutableLiveData<List<String>>()
+        val list = MutableLiveData<List<String>>()
         diskIoExecutor.execute {
             db.runInTransaction {
-              list = db.getContactsDao().getContactId() as MutableLiveData<List<String>>
+                val listOfContactId = db.getContactsDao().getContactId()
+                list.postValue(listOfContactId)
             }
         }
-//            mediatorLiveData.addSource(list, Observer {
-//                mediatorLiveData.postValue(it)
-//            })
-
         return list
     }
 
     fun getDetailsOfContactId(contactId: String): LiveData<ContactDetails> {
-        val mediatorLiveData = MediatorLiveData<ContactDetails>()
+        val contactDetailLiveData = MutableLiveData<ContactDetails>()
         diskIoExecutor.execute {
             val contactDetails = db.getContactsDao().getContactIdDetails(contactId)
-            mediatorLiveData.addSource(contactDetails, Observer {
-                mediatorLiveData.postValue(it)
-            })
+            contactDetailLiveData.postValue(contactDetails)
         }
-        return mediatorLiveData
+
+        return contactDetailLiveData
     }
 }
