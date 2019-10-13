@@ -1,18 +1,12 @@
 package com.example.contactbook.data
 
-import android.app.Activity
 import android.content.Context
-import android.os.Looper
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import com.example.contactbook.data.database.Contacts
 import com.example.contactbook.data.database.ContactsDatabase
 import com.example.contactbook.data.database.MockDataProvider
 import com.example.contactbook.data.model.ContactDetails
 import java.util.concurrent.Executors
-import java.util.logging.Handler
 
 class DbRepository(val context: Context) {
 
@@ -49,7 +43,6 @@ class DbRepository(val context: Context) {
             val contactDetails = db.getContactsDao().getContactIdDetails(contactId)
             contactDetailLiveData.postValue(contactDetails)
         }
-
         return contactDetailLiveData
     }
 }

@@ -21,8 +21,6 @@ import kotlinx.android.synthetic.main.contact_drop_down_fragment.*
 
 class ContactDropDownFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
-    lateinit var listOfContact: ArrayList<String>
-
     lateinit var model: ContactBookViewModel
 
     override fun onNothingSelected(parent: AdapterView<*>?) {

@@ -11,7 +11,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.example.contactbook.R
 import com.example.contactbook.ServiceLocator
-import com.example.contactbook.data.DbRepository
 import com.example.contactbook.data.model.ContactDetails
 import com.example.contactbook.ui.ContactBookViewModel
 import kotlinx.android.synthetic.main.contact_details_fragment.*
@@ -31,7 +30,8 @@ class ContactDetailsFragment : Fragment() {
                 val dbRepository = ServiceLocator.instance(requireContext()).getRepository()
                 @Suppress("UNCHECKED_CAST")
                 return ContactBookViewModel(dbRepository) as T
-            }})[ContactBookViewModel::class.java]
+            }
+        })[ContactBookViewModel::class.java]
         contact = arguments?.get(CONTACT_ID_KEY) as String
     }
 
@@ -49,7 +49,8 @@ class ContactDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        return LayoutInflater.from(inflater.context).inflate(R.layout.contact_details_fragment, container, false)
+        return LayoutInflater.from(inflater.context)
+            .inflate(R.layout.contact_details_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -68,5 +69,4 @@ class ContactDetailsFragment : Fragment() {
             return fragment
         }
     }
-
 }
