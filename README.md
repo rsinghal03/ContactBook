@@ -1,4 +1,4 @@
-#A sample app that will show how to use Room database with live data
+#A sample app that will show how to manage local data with Room database and live data
 Room database 
 Livedata
 
