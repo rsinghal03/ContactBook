@@ -2,7 +2,6 @@ package com.example.contactbook.data
 
 import android.content.Context
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.contactbook.data.database.ContactsDatabase
 import com.example.contactbook.data.database.MockDataProvider
 import com.example.contactbook.data.model.ContactDetails
@@ -27,22 +26,10 @@ class DbRepository(val context: Context) {
     }
 
     fun getListOfContactId(): LiveData<List<String>> {
-        val list = MutableLiveData<List<String>>()
-        diskIoExecutor.execute {
-            db.runInTransaction {
-                val listOfContactId = db.getContactsDao().getContactId()
-                list.postValue(listOfContactId)
-            }
-        }
-        return list
+        return db.getContactsDao().getContactId()
     }
 
     fun getDetailsOfContactId(contactId: String): LiveData<ContactDetails> {
-        val contactDetailLiveData = MutableLiveData<ContactDetails>()
-        diskIoExecutor.execute {
-            val contactDetails = db.getContactsDao().getContactIdDetails(contactId)
-            contactDetailLiveData.postValue(contactDetails)
-        }
-        return contactDetailLiveData
+        return db.getContactsDao().getContactIdDetails(contactId)
     }
 }
