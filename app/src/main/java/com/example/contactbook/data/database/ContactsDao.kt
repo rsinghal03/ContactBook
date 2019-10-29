@@ -22,13 +22,14 @@ interface ContactsDao {
     @Query("select contactId from Contacts")
     fun getContactId(): LiveData<List<String>>
 
-    @Query("select contacts.stagingId, newTable._context, newTable.userId, " +
-            "newTable.status from contacts join (select * from accounts join " +
-            "extensions on extensions._context = accounts._context) as newTable " +
-            "on contacts._id = newTable.phoneContactId " +
-            "where contacts.contactId LIke :contactId")
+//    @Query("select contacts.stagingId, newTable._context, newTable.userId, " +
+//            "newTable.status from contacts join (select * from accounts join " +
+//            "extensions on extensions._context = accounts._context) as newTable " +
+//            "on contacts._id = newTable.phoneContactId " +
+//            "where contacts.contactId LIke :contactId")
+//    fun getContactIdDetails(contactId: String): LiveData<ContactDetails>
+
+    @Query("select * from Contacts where contactId Like :contactId")
     fun getContactIdDetails(contactId: String): LiveData<ContactDetails>
-
-
 
 }

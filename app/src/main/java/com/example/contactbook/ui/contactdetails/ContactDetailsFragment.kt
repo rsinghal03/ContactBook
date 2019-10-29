@@ -37,10 +37,10 @@ class ContactDetailsFragment : Fragment() {
 
     private fun updateUi(it: ContactDetails) {
         contactId.text = contact
-        stagingId.text = it.stagingId
-        _context.text = it._context
-        userId.text = it.userId
-        status.text = it.status.toString()
+        stagingId.text = it.contacts.stagingId
+        _context.text = it.accounts._context
+        userId.text = it.accounts.userId
+        status.text = it.accounts.status.toString()
     }
 
     override fun onCreateView(

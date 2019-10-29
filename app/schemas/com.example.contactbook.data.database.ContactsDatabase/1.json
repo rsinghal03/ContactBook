@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "4f8e99508a61a5c625dfd6785898598f",
+    "identityHash": "d23699c63b467bdc210d69d65e4d71bc",
     "entities": [
       {
         "tableName": "Contacts",
@@ -70,7 +70,7 @@
       },
       {
         "tableName": "Extensions",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_context` TEXT NOT NULL, `phoneContactId` INTEGER NOT NULL, PRIMARY KEY(`phoneContactId`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_context` TEXT NOT NULL, `_id` INTEGER NOT NULL, PRIMARY KEY(`_context`, `_id`))",
         "fields": [
           {
             "fieldPath": "_context",
@@ -79,15 +79,16 @@
             "notNull": true
           },
           {
-            "fieldPath": "phoneContactId",
-            "columnName": "phoneContactId",
+            "fieldPath": "_id",
+            "columnName": "_id",
             "affinity": "INTEGER",
             "notNull": true
           }
         ],
         "primaryKey": {
           "columnNames": [
-            "phoneContactId"
+            "_context",
+            "_id"
           ],
           "autoGenerate": false
         },
@@ -98,7 +99,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4f8e99508a61a5c625dfd6785898598f')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd23699c63b467bdc210d69d65e4d71bc')"
     ]
   }
 }
